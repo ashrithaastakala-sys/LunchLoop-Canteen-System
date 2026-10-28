@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Token Tracker - LunchLoop</title>
+  <meta name="description" content="Track your pre-order status, live kitchen preparation progress, and flash your pickup token.">
+  <meta name="theme-color" content="#E94B35">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="LunchLoop Home">
+        <div class="brand-icon">L</div>
+        <div class="brand-name">Lunch<span>Loop</span></div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="menu.html" class="nav-link">Today's Menu</a></li>
+          <li><a href="orders.html" class="nav-link active">My Orders</a></li>
+          <li><a href="kitchen.html" class="nav-link">Kitchen Queue</a></li>
+          <li><a href="staff.html" class="nav-link">Staff Operations</a></li>
+          <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline btn-sm" id="navCartBtn" aria-label="Open tray">
+          🛒 Tray <span class="badge badge-veg" id="cartCountPill" style="display:none;">0</span>
+        </button>
+        <div id="navAuthContainer">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="badge badge-veg" style="font-size:0.8rem; padding: 5px 10px;">🎓 Student View</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent" class="container tracker-container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <a href="orders.html" class="btn btn-outline btn-sm">&larr; Back to Orders</a>
+      <span style="font-size: 0.85rem; color: var(--color-muted);">🟢 Auto-updating live</span>
+    </div>
+
+    <div id="orderTrackerContent">
+      <div class="skeleton" style="height: 320px; border-radius: 16px; margin-bottom: 20px;"></div>
+      <div class="skeleton" style="height: 200px; border-radius: 16px;"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>&copy; 2026 LunchLoop &bull; Campus Canteen Queue Management System</div>
+      <div>Skip the queue. Keep your break.</div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/tracker.js"></script>
+</body>
+</html>

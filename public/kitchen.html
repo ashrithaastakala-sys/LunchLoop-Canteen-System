@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Order Queue - LunchLoop</title>
+  <meta name="description" content="Kitchen Display System (KDS) board for canteen operators to coordinate cooking and ready orders.">
+  <meta name="theme-color" content="#E94B35">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body style="background: #F4F1EA;">
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="LunchLoop Home">
+        <div class="brand-icon" style="background: var(--color-basil);">K</div>
+        <div class="brand-name">Lunch<span>Loop</span> <span style="font-size:0.85rem; font-weight:600; color:var(--color-muted);">[Kitchen Display]</span></div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="menu.html" class="nav-link">Today's Menu</a></li>
+          <li><a href="orders.html" class="nav-link">My Orders</a></li>
+          <li><a href="kitchen.html" class="nav-link active">Kitchen Queue</a></li>
+          <li><a href="staff.html" class="nav-link">Staff Operations</a></li>
+          <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navAuthContainer">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="badge badge-ready" style="font-size:0.8rem; padding: 5px 10px;">👨‍🍳 Staff View</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent" class="container" style="padding-top: 30px; padding-bottom: 60px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+      <div>
+        <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px;">
+          🍳 Live Kitchen Queue
+        </h1>
+        <p style="color: var(--color-muted); font-size: 1rem;">
+          Real-time order ticket board for canteen prep cooks & pickup counter staff.
+        </p>
+      </div>
+
+      <div style="display:flex; align-items:center; gap: 10px; flex-wrap: wrap;">
+        <span class="badge badge-ready" id="kitchenActiveCount" style="font-size: 0.9rem; padding: 6px 12px;">
+          Loading active orders...
+        </span>
+        <button class="btn btn-outline btn-sm" id="btnToggleSound" onclick="toggleKitchenSound()" title="Toggle incoming order audio chime">
+          🔔 Audio: ON
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="loadKitchenQueue()">🔄 Refresh</button>
+      </div>
+    </div>
+
+    <!-- Filters & Sort -->
+    <div class="menu-controls" style="padding: 14px 20px;">
+      <div class="filter-row">
+        <div class="category-tabs" style="margin: 0; padding: 0;">
+          <button class="cat-tab kitchen-filter-tab active" data-status="all">All Active</button>
+          <button class="cat-tab kitchen-filter-tab" data-status="confirmed">Confirmed (New)</button>
+          <button class="cat-tab kitchen-filter-tab" data-status="preparing">Preparing</button>
+          <button class="cat-tab kitchen-filter-tab" data-status="ready">Ready for Pickup</button>
+        </div>
+
+        <div style="display:flex; align-items:center; gap: 8px; flex-wrap: wrap;">
+          <input type="text" id="kitchenSearchInput" class="form-input" placeholder="🔍 Find Token (e.g. T-101)..." style="width: 170px; padding: 5px 10px; font-size: 0.82rem;" oninput="onKitchenSearch(this.value)">
+          <label for="kitchenSortSelect" style="font-size: 0.85rem; font-weight: 600; color: var(--color-muted);">Sort:</label>
+          <select class="form-select" id="kitchenSortSelect" style="width: auto; padding: 6px 12px; font-size: 0.85rem;">
+            <option value="oldest">Oldest First (First Come First Served)</option>
+            <option value="newest">Newest First</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Queue Cards Grid -->
+    <div class="kitchen-grid" id="kitchenQueueGrid">
+      <!-- Injected via kitchen.js -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>&copy; 2026 LunchLoop &bull; Kitchen Display System (KDS)</div>
+      <div>Auto-updating every 6 seconds &bull; Campus Central Canteen</div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/kitchen.js"></script>
+</body>
+</html>

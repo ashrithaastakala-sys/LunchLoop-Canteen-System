@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peak-Hour Analytics - LunchLoop</title>
+  <meta name="description" content="Real-time canteen operational analytics, hourly demand curves, window occupancy rates, and inventory audits.">
+  <meta name="theme-color" content="#E94B35">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="LunchLoop Home">
+        <div class="brand-icon" style="background: var(--color-charcoal);">A</div>
+        <div class="brand-name">Lunch<span>Loop</span> <span style="font-size:0.85rem; font-weight:600; color:var(--color-muted);">[Analytics]</span></div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="menu.html" class="nav-link">Today's Menu</a></li>
+          <li><a href="orders.html" class="nav-link">My Orders</a></li>
+          <li><a href="kitchen.html" class="nav-link">Kitchen Queue</a></li>
+          <li><a href="staff.html" class="nav-link">Staff Operations</a></li>
+          <li><a href="analytics.html" class="nav-link active">Analytics</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navAuthContainer">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="badge badge-ready" style="font-size:0.8rem; padding: 5px 10px;">👨‍🍳 Staff View</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent" class="container" style="padding-top: 36px; padding-bottom: 60px;">
+    <div id="analyticsMainContent">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+        <div>
+          <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px;">
+            Peak-Hour Queue & Kitchen Analytics 📊
+          </h1>
+          <p style="color: var(--color-muted); font-size: 1.05rem;">
+            Data-driven insights to eliminate food wastage and streamline rush hour preparation.
+          </p>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <div style="background: var(--color-pale-yellow); border: 1px solid rgba(184, 134, 11, 0.3); padding: 8px 14px; border-radius: var(--radius-pill); font-size: 0.82rem; font-weight: 700; color: #78350F;">
+            🔬 Seeded Demonstration Analytics Dataset
+          </div>
+          <button class="btn btn-primary btn-sm" id="btnExportCSV" onclick="exportAnalyticsCSV()" style="font-size:0.85rem; padding: 7px 14px;">
+            📥 Export Shift Report (CSV)
+          </button>
+        </div>
+      </div>
+
+      <!-- Overview KPI Stat Tiles -->
+      <div class="stats-grid">
+        <div class="stat-tile">
+          <div class="stat-tile-title">Total Orders (Today)</div>
+          <div class="stat-tile-val" id="kpiTotalOrders">-</div>
+          <div class="stat-tile-sub">Pre-ordered through LunchLoop</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-title">Active In-Kitchen Queue</div>
+          <div class="stat-tile-val" id="kpiActiveQueue" style="color:var(--color-tomato);">-</div>
+          <div class="stat-tile-sub">Orders currently being cooked</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-title">Cancellation Rate</div>
+          <div class="stat-tile-val" id="kpiCancellationRate" style="color:var(--color-basil);">-</div>
+          <div class="stat-tile-sub">Portions safely restored</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-title">Total Revenue Estimated</div>
+          <div class="stat-tile-val" id="kpiRevenue">-</div>
+          <div class="stat-tile-sub">Payable at collection counter</div>
+        </div>
+      </div>
+
+      <!-- Charts Row: Hourly Demand Chart (2fr) & Pickup Window Occupancy (1.2fr) -->
+      <div style="display:grid; grid-template-columns: 1.8fr 1.2fr; gap: 24px; margin-bottom: 28px; align-items:flex-start;">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <h2 class="chart-title">Hourly Demand Curve (08:00 - 18:00)</h2>
+              <p style="font-size:0.82rem; color:var(--color-muted);">Peak campus rush observed during 12:30 PM - 02:00 PM</p>
+            </div>
+            <span class="badge badge-nonveg">Peak Window: 13:00</span>
+          </div>
+
+          <div class="bar-chart-container" id="hourlyDemandBarChart">
+            <!-- Injected via analytics.js -->
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <h2 class="chart-title">Window Booking Occupancy</h2>
+              <p style="font-size:0.82rem; color:var(--color-muted);">Slot capacity utilization by time window</p>
+            </div>
+          </div>
+
+          <div id="windowDemandContainer">
+            <!-- Injected via analytics.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Split: Top 5 Items Table & Recent Inventory Event Audit -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h2 class="chart-title">🏆 Top Ordered Canteen Dishes</h2>
+          </div>
+          <div class="data-table-container" style="border:none;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                  <th>Revenue</th>
+                </tr>
+              </thead>
+              <tbody id="topItemsTableBody">
+                <!-- Injected via analytics.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h2 class="chart-title">📦 Inventory Audit Log (Recent Stock Events)</h2>
+          </div>
+          <div id="recentInventoryActivityList">
+            <!-- Injected via analytics.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>&copy; 2026 LunchLoop &bull; Operational Analytics Engine</div>
+      <div>Campus Canteen Queue Optimization</div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/analytics.js"></script>
+</body>
+</html>
